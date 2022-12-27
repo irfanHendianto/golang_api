@@ -8,7 +8,7 @@ Running Program
 
 Runing Unit Test
 - set data in function testing
-- to running unit test using command go test -v - run <NameFunctionTesting>
+- to running unit test using command go test -v - run (NameFunctionTesting)
 
 Runing Docker Compose
 -docker compose up

@@ -8,8 +8,14 @@ Running Program
 
 Runing Unit Test
 - set data in function testing
-- to running unit test using command go test -v - run <NameFunctionTesting>
+- to running unit test using command go test -v - run (NameFunctionTesting)
 
 Runing Docker Compose
 -docker compose up
 
+
+Format data yang di harus isi
+DB_USER=
+DB_PASS=
+DB_HOST=
+DB_NAME=

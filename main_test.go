@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"strconv"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -25,8 +24,8 @@ func TestLogin(t *testing.T) {
 	r := SetUpRouter()
 	r.POST("/api/auth/login", authController.Login)
 	loginData := dto.LoginDTO{
-		Username: "irfan@gmail.com",
-		Password: "pass@word1234568",
+		Username: "test@gmail.com",
+		Password: "pass@word123456a",
 	}
 	jsonValue, _ := json.Marshal(&loginData)
 	w := httptest.NewRecorder()
@@ -42,8 +41,8 @@ func TestRegister(t *testing.T) {
 	r.POST("/api/auth/register", authController.Register)
 	r.DELETE("/api/auth/delete", userController.Delete)
 	registerData := dto.RegisterDTO{
-		FullName:        "irfan a",
-		Username:        "irfan022@gmail.com",
+		FullName:        "test",
+		Username:        "test@gmail.com",
 		Password:        "pass@word123456a",
 		ConfirmPassword: "pass@word123456a",
 	}
@@ -53,18 +52,6 @@ func TestRegister(t *testing.T) {
 	req.Header.Set("Content-Type", "application/json")
 	r.ServeHTTP(w, req)
 
-	var responseBody helper.Response
-	json.NewDecoder(w.Body).Decode(&responseBody)
-	temp := fmt.Sprintf("%.f", responseBody.Data.(map[string]interface{})["id"])
-	ID, _ := strconv.ParseInt(temp, 10, 64)
-	deleteUser := dto.DeleteUserDTO{
-		ID: ID,
-	}
-	jsonValueUser, _ := json.Marshal(&deleteUser)
-	wUser := httptest.NewRecorder()
-	reqUser, _ := http.NewRequest("DELETE", "/api/auth/delete", bytes.NewReader(jsonValueUser))
-	reqUser.Header.Set("Content-Type", "application/json")
-	r.ServeHTTP(wUser, reqUser)
 	assert.Equal(t, http.StatusCreated, w.Code)
 }
 
@@ -74,11 +61,11 @@ func TestGetProfile(t *testing.T) {
 	r.Use(middleware.AuthorizeJWT(jwtService))
 	r.GET("/api/user/profile", userController.Profile)
 
-	loginData := dto.LoginDTO{
-		Username: "irfan@gmail.com",
-		Password: "pass@word1234568",
+	getProfileData := dto.LoginDTO{
+		Username: "test@gmail.com",
+		Password: "pass@word123456a",
 	}
-	jsonValue, _ := json.Marshal(&loginData)
+	jsonValue, _ := json.Marshal(&getProfileData)
 	wAuth := httptest.NewRecorder()
 	reqAuth, _ := http.NewRequest("POST", "/api/auth/login", bytes.NewBuffer(jsonValue))
 	reqAuth.Header.Set("Content-Type", "application/json")
@@ -103,8 +90,8 @@ func TestUpdateProfile(t *testing.T) {
 	r.PUT("/api/user/profile", userController.Profile)
 
 	loginData := dto.LoginDTO{
-		Username: "irfan@gmail.com",
-		Password: "pass@word1234568",
+		Username: "test@gmail.com",
+		Password: "pass@word123456a",
 	}
 	jsonValue, _ := json.Marshal(&loginData)
 	wAuth := httptest.NewRecorder()
@@ -117,10 +104,10 @@ func TestUpdateProfile(t *testing.T) {
 
 	w := httptest.NewRecorder()
 	UpdateData := dto.UserUpdateDTO{
-		FullName:        "irfan wijaya",
-		Username:        "irfan@gmail.com",
-		Password:        "pass@word1234568",
-		ConfirmPassword: "pass@word1234568",
+		FullName:        "test",
+		Username:        "test@gmail.com",
+		Password:        "pass@word123456a",
+		ConfirmPassword: "pass@word123456a",
 	}
 	jsonValueUpdate, _ := json.Marshal(&UpdateData)
 	req, _ := http.NewRequest("PUT", "/api/user/profile", bytes.NewBuffer(jsonValueUpdate))

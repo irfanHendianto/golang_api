@@ -13,3 +13,9 @@ Runing Unit Test
 Runing Docker Compose
 -docker compose up
 
+
+Format data yang di harus isi
+DB_USER=
+DB_PASS=
+DB_HOST=
+DB_NAME=

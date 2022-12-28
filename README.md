@@ -12,6 +12,10 @@ Runing Unit Test
 
 Runing Docker Compose
 -docker compose up
+-for running command for unit test 
+ - running command docker exec -it containerName /bin/sh
+ - after inside docker container running go test -v -vet=off -run funcNameTesting
+ 
 
 
 Format data yang di harus isi
